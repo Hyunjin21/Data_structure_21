@@ -57,7 +57,7 @@ malloc : 일정량의 메모리를 동적할당
         return 1;
      }
 
-     // Copy integers from oid array into new array
+     // Copy integers from old array into new array
      for (int i = 0; i < 3; i++)
      {
         tmp[i] = list[i];  //list값을 tmp로 복사
