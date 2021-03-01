@@ -17,6 +17,55 @@ rear : 삽입 연산이 이루어지는 곳
 먼저 요청을 보낸 순서대로 프린트 받기
 활용) 프린터의 인쇄 대기열, 은행 업무, 프로세스 관리
 
+#include <stdio.h>
+#define MAX 100
+int front=-1;
+int rear=-1;
+int queue[MAX];
+ 
+int IsEmpty(void){
+    if(front==rear)//front와 rear가 같으면 큐는 비어있는 상태 
+        return true;
+    else return false;
+}
+int IsFull(void){
+    int tmp=(rear+1)%MAX; //원형 큐에서 rear+1을 MAX로 나눈 나머지값이
+    if(tmp==front)//front와 같으면 큐는 가득차 있는 상태 
+        return true;
+    else
+        return false;
+}
+void addq(int value){
+    if(IsFull())
+        printf("Queue is Full.\n");
+    else{
+         rear = (rear+1)%MAX;
+         queue[rear]=value;
+        }
+
+}
+int deleteq(){
+    if(IsEmpty())
+        printf("Queue is Empty.\n");
+    else{
+        front = (front+1)%MAX;
+        return queue[front];
+    }
+}
+ 
+int main(){
+    
+    addq(4);
+    addq(7);
+    addq(12);
+    printf("%d\n",deleteq());
+    printf("%d\n",deleteq());
+    printf("%d\n",deleteq());
+    deleteq();
+    
+    return 0;
+}
+
 
 <스택> stacks : 값이 위로 쌓이는 구조, 가장 나중에 들어온 값이 가장 먼저 나감 - 배열, 연결리스트 통해 구현 가능
 LIFO (Last In First Out) 후입 선출의 특징을 가진 자료구조
@@ -29,7 +78,55 @@ pop : 삭제연산, 가장 위의 요소를 뺀다, 요소 제거
 -> 쟁반을 빨리 가져올 수 있고 최신 메일을 볼 수 있다는 장점
 but, 스택이 사라질 때까지 그 메일을 보지 못함, 계속해서 스택을 채운다면 계속 위쪽에 새로운 쟁반이 생김
 활용) 엡브라우저 방문기록 뒤로가기, 역순 문자열 만들기, 실행 취소
- 
+
+#include<stdio.h>
+#define MAX_STACK_SIZE 100
+
+int stack[MAX_STACK_SIZE];
+int top = - 1 ;
+
+int IsEmpty(){
+     if(top<0)
+           return true;
+     else
+           return false;
+     }
+int IsFull(){
+     if(top>=MAX_STACK_SIZE-1)
+           return true;
+     else
+           return false;
+}
+
+void push(int value){
+     if(IsFull()==true)
+            printf("스택이 가득 찼습니다.");
+     else 
+            stack[++top]=value;
+}
+
+int pop(){
+    if(IsEmpty()==true)
+           printf("스택이 비었습니다.");
+    else
+           return stack[top--];
+}
+
+int main(){
+    push(3);
+    push(5);
+    push(12);
+    printf("%d ",pop());
+    printf("%d ",pop());
+    printf("%d ",pop());
+
+    return 0;
+}
+결과
+12
+5
+3
+스택이 비었습니다.
 
 <딕셔너리> dictionaries : '키'에 해당하는 '값'을 저장하고 읽어옴
 해시 테이블이라고도 생각할 수 있는 개념 - 해시테이블을 구현하기 위해 바구니 사용
